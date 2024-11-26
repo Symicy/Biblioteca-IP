@@ -8,6 +8,7 @@ function App() {
     const [data, setData] = useState({});
     const [currentPage, setCurrentPage] = useState(0);
     const [showModal, setShowModal]=useState(false);
+    const [userType, setUserType]=useState('guest');
 
     const getAllBooks = async (page = 0, size = 10) => {
         try {
@@ -53,7 +54,7 @@ function App() {
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Titlu Modal</h5>
+                                <h5 className="modal-title">Adaugare carte</h5>
                                 <button
                                     type="button"
                                     className="btn-close"
@@ -62,7 +63,30 @@ function App() {
                                 ></button>
                             </div>
                             <div className="modal-body">
-                                <p>Modal Content.</p>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text" id="inputGroup-sizing-default">Nume:</span>
+                                    <input type="text" className="form-control" aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-default"/>
+                                </div>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text" id="inputGroup-sizing-default">Autor:</span>
+                                    <input type="text" className="form-control" aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-default"/>
+                                    </div>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text" id="inputGroup-sizing-default">ISBN/ISSN:</span>
+                                    <input type="text" className="form-control" aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-default"/>
+                                    </div>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text" id="inputGroup-sizing-default">Data publicare:</span>
+                                    <input type="text" className="form-control" aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-default"/>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="formFile" className="form-label">Adaugare poza carte</label>
+                                    <input className="form-control" type="file" id="formFile"/>
+                                </div>
                             </div>
                             <div className="modal-footer">
                                 <button
@@ -70,10 +94,10 @@ function App() {
                                     className="btn btn-secondary"
                                     onClick={toggleModal}
                                 >
-                                    Close
+                                    Inchide
                                 </button>
                                 <button type="button" className="btn btn-primary">
-                                    Save Changes
+                                    Salveaza
                                 </button>
                             </div>
                         </div>
