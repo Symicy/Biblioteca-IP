@@ -1,23 +1,41 @@
+//dezactivare EsLint
+/* eslint-disable */
+
 import React from "react";
 import Book from "./Book.jsx";
 
 const BookList = ({data, currentPage, getAllBooks}) => {
+
+    const handlePageChange = (newPage) => {
+        if (newPage >= 0 && newPage < data.totalPages) {
+            getAllBooks(newPage);
+        }
+    };
+
     return(
         <main className={'main'}>
             {data?.content?.length===0 && <div>No books found</div>}
 
-            <ul className={'book__list'}>
-                {data?.content?.length>0 && data.content.map(book=> <Book book={book} key={book.id}/>)}
-            </ul>
+            <div className="row">
+                {data?.content?.length > 0 && data.content.map(book => (
+                    <div className="col-md-4 mb-3" key={book.id}>
+                        <Book book={book}/>
+                    </div>
+                ))}
+            </div>
 
-            {data?.content?.length>0 && data?.totalPages>1 &&
-                <div className={'pagination'}>
-                    <a onClick={()=>getAllBooks(currentPage-1)} className={0===currentPage?'disabled':''}>Previous</a>
+            {data?.content?.length > 0 && data?.totalPages > 1 &&
+                <div className="pagination justify-content-center">
+                    <button className="btn btn-primary" onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 0}>
+                        Pagina anterioara
+                    </button>
 
-                    {data && [...Array(data.totalPages).keys()].map((page,index)=>
-                        <a onClick={getAllBooks(page)} className={currentPage===page ? 'active':''} key={page} >{page+1}</a>)}
-
-                    <a onClick={()=>getAllBooks(currentPage+1)} className={data.totalPages===currentPage+1?'disabled':''}>Next</a>
+                    <p className="text-center">Pagina {currentPage + 1} din {data.totalPages}</p>
+                    <button className="btn btn-primary" onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === data.totalPages - 1}>
+                        Pagina urmatoare
+                    </button>
                 </div>
             }
 
