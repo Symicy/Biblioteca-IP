@@ -13,11 +13,11 @@ const Book=({book})=>{
                     </div>
                     <div className="col-md-8">
                         <div className="card-body">
-                            <h3 className="card-title">{book.titlu}</h3>
-                            <h4><span className="badge text-bg-secondary">Nume autor:</span>{book.autor_id}</h4>
-                            <h4><span className="badge text-bg-secondary">ISBN/ISSN:</span>{book.isbn_issn}</h4>
-                            <h4><span className="badge text-bg-secondary">Data publicare:</span>{book.data_publicare}</h4>
-                            <h4><span className="badge text-bg-secondary">Status:</span>{book.status}</h4>
+                            <h2 className="card-title">{book.titlu}</h2>
+                            <h5><span className="badge text-bg-secondary">Nume autor:</span>{book.autor_id}</h5>
+                            <h5><span className="badge text-bg-secondary">ISBN/ISSN:</span>{book.isbn_issn}</h5>
+                            <h5><span className="badge text-bg-secondary">Data publicare:</span>{book.data_publicare}</h5>
+                            <h5><span className="badge text-bg-secondary">Status:</span>{book.status}</h5>
                         </div>
                     </div>
                 </div>
