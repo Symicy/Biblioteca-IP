@@ -1,8 +1,16 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
+import {Link} from "react-router-dom";
+import * as Icons from "react-icons/fa";
+import "./Header.css";
 
 const Header = ({userType,nbOfBooks}) => {
   return (
       <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+            <Link to="/" className="navbar-brand text-light">
+                BIBLIOTECA
+                <Icons.FaBook/>
+            </Link>
           <div className="container-fluid">
               <h3 className="text-light">Numar carti: {nbOfBooks}</h3>
               <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -28,8 +36,8 @@ const Header = ({userType,nbOfBooks}) => {
                           <button type="submit" className="btn btn-primary">Logare</button>
                       </form>
                       <div className="dropdown-divider"></div>
-                      <a className="dropdown-item" href="#">Inregistrare</a>
-                      <a className="dropdown-item" href="#">Parola uitata?</a>
+                      <Link className="dropdown-item" to="/register">Inregistrare</Link>
+                      <Link className="dropdown-item" to="/forgot-password">Parola uitata?</Link>
                   </div>
               </div>
           </div>
