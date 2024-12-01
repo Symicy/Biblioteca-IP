@@ -4,14 +4,27 @@
 import React from "react";
 import Book from "./Book.jsx";
 
+/**
+ * Book list component
+ * @param data
+ * @param currentPage
+ * @param getAllBooks
+ * @returns {Element}
+ * @constructor
+ */
 const BookList = ({data, currentPage, getAllBooks}) => {
-
+    /**
+     * Handle page change
+     * @param newPage
+     */
     const handlePageChange = (newPage) => {
         if (newPage >= 0 && newPage < data.totalPages) {
             getAllBooks(newPage);
         }
     };
-
+    /**
+     * Render component
+     */
     return(
         <main className={'main'}>
             {data?.content?.length===0 && <div>No books found</div>}
