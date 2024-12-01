@@ -4,6 +4,11 @@ import {getBooks, saveBook} from "./api/bookService";
 import { Routes, Route, Navigate } from "react-router-dom";
 import BookList from "./components/BookList";
 
+/**
+ * Main component
+ * @returns {Element}
+ * @constructor
+ */
 function App() {
     const [data, setData] = useState({});
     const [currentPage, setCurrentPage] = useState(0);
@@ -17,7 +22,12 @@ function App() {
         status:''
     });
 
-
+    /**
+     * Get all books
+     * @param page
+     * @param size
+     * @returns {Promise<void>}
+     */
     const getAllBooks = async (page = 0, size = 10) => {
         try {
             setCurrentPage(page);
@@ -28,7 +38,10 @@ function App() {
             console.error("Error getting books", error);
         }
     };
-
+    /**
+     * Handle change book
+     * @param event
+     */
     const onchangeBook=(event)=>{
         setValuesBook({...valuesBook, [event.target.name]: event.target.value});
         console.log(valuesBook);
@@ -109,9 +122,23 @@ function App() {
                                            aria-describedby="inputGroup-sizing-default" required/>
                                 </div>
                                 <div className="input-group mb-3">
+                                    <span className="input-group-text" id="inputGroup-sizing-default">Limba:</span>
+                                    <input type="text" value={valuesBook.limba} name="limba"
+                                           onChange={onchangeBook} className="form-control"
+                                           aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-default" required/>
+                                </div>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text" id="inputGroup-sizing-default">Categorie:</span>
+                                    <input type="text" value={valuesBook.categorie} name="categorie"
+                                           onChange={onchangeBook} className="form-control"
+                                           aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-default" required/>
+                                </div>
+                                <div className="input-group mb-3">
                                     <span className="input-group-text"
                                           id="inputGroup-sizing-default">Data publicare:</span>
-                                    <input type="text" value={valuesBook.data_publicare} name="data_publicare"
+                                    <input type="text" value={valuesBook.an_publicare} name="data_publicare"
                                            onChange={onchangeBook} className="form-control"
                                            aria-label="Sizing example input"
                                            aria-describedby="inputGroup-sizing-default" required/>

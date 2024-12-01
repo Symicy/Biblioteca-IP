@@ -1,5 +1,12 @@
 import React from "react";
 
+/**
+ * Header component
+ * @param userType
+ * @param nbOfBooks
+ * @returns {Element}
+ * @constructor
+ */
 const Header = ({userType,nbOfBooks}) => {
   return (
       <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark">

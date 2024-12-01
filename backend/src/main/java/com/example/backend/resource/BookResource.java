@@ -18,10 +18,15 @@ import static com.example.backend.constant.Constant.PHOTO_DIR;
 import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
+
 @Slf4j
 @RestController
 @RequestMapping("/books")
 @RequiredArgsConstructor
+
+/**
+ * The BookResource class is a REST controller that handles HTTP requests for the Book entity.
+ */
 public class BookResource
 {
     private final BookService bookService;
