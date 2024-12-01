@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
+/**
+ * Entity class representing an Author.
+ */
 @Entity
 @Getter
 @Setter
@@ -20,13 +23,36 @@ import org.hibernate.annotations.UuidGenerator;
 @Table(name = "author")
 public class Author
 {
+    /**
+     * Unique identifier for the author.
+     */
     @Id
     @UuidGenerator
-    @Column(name = "id",unique = true, updatable = false)
+    @Column(name = "id", unique = true, updatable = false)
     private String id;
-    private String nume;
-    private String prenume;
-    private String data_nasterii;
-    private String data_decesului;
-    private String tara;
+
+    /**
+     * Last name of the author.
+     */
+    private String lastName;
+
+    /**
+     * First name of the author.
+     */
+    private String firstName;
+
+    /**
+     * Birth date of the author.
+     */
+    private String dateOfBirth;
+
+    /**
+     * Death date of the author.
+     */
+    private String dateOfDeath;
+
+    /**
+     * Country of the author.
+     */
+    private String country;
 }

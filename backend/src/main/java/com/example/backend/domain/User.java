@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
-
+/**
+ * Entity class representing a User.
+ */
 @Entity
 @Getter
 @Setter
@@ -21,12 +23,31 @@ import org.hibernate.annotations.UuidGenerator;
 @Table(name = "user")
 public class User
 {
+    /**
+     * Unique identifier for the user.
+     */
     @Id
     @UuidGenerator
-    @Column(name = "id",unique = true, updatable = false)
+    @Column(name = "id", unique = true, updatable = false)
     private String id;
-    private String nume;
+
+    /**
+     * Name of the user.
+     */
+    private String username;
+
+    /**
+     * Email of the user.
+     */
     private String email;
-    private String parola;
-    private String tip;
+
+    /**
+     * Password of the user.
+     */
+    private String password;
+
+    /**
+     * Type of the user (e.g., librarian, regular user).
+     */
+    private String type;
 }
