@@ -23,10 +23,6 @@ import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 @RestController
 @RequestMapping("/books")
 @RequiredArgsConstructor
-
-/**
- * The BookResource class is a REST controller that handles HTTP requests for the Book entity.
- */
 public class BookResource
 {
     private final BookService bookService;
@@ -56,6 +52,13 @@ public class BookResource
                                               @RequestParam("file") MultipartFile file)
     {
         return ResponseEntity.ok().body(bookService.uploadPhoto(id, file));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteBook(@PathVariable(value = "id") String id)
+    {
+        bookService.deleteBook(id);
+        return ResponseEntity.ok().body("Book deleted");
     }
 
 //    @GetMapping(path = "/image/{fileName}", produces = {IMAGE_PNG_VALUE, IMAGE_JPEG_VALUE})

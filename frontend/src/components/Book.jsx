@@ -22,9 +22,8 @@ const Book=({book})=>{
                             <h3 className="card-title">{book.titlu}</h3>
                             <h4><span className="badge text-bg-secondary">Nume autor:</span>{book.autor_id}</h4>
                             <h4><span className="badge text-bg-secondary">ISBN/ISSN:</span>{book.isbn_issn}</h4>
-                            <h4><span className="badge text-bg-secondary">Data publicare:</span>{book.data_publicare}</h4>
                             <h4><span className="badge text-bg-secondary">Status:</span>{book.status}</h4>
-                            <h4><span className="badge text-bg-secondary">An publicare:</span>{book.an_adaugare}</h4>
+                            <h4><span className="badge text-bg-secondary">An publicare:</span>{book.an_publicare}</h4>
                             <h4><span className="badge text-bg-secondary">Limba:</span>{book.limba}</h4>
                             <h4><span className="badge text-bg-secondary">Categorie:</span>{book.categorie}</h4>
                         </div>
