@@ -1,6 +1,10 @@
-// frontend/src/components/ForgotPassword.jsx
 import React from 'react';
 
+/**
+ * ForgotPassword component
+ * @returns {JSX.Element} The rendered ForgotPassword component.
+ * @constructor
+ */
 const ForgotPassword = () => {
     return (
         <div>

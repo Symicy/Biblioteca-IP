@@ -7,6 +7,11 @@ const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = '/register';
 
+/**
+ * Register component
+ * @returns {JSX.Element} The rendered Register component.
+ * @constructor
+ */
 const Register = () => {
     const userRef = useRef();
     const errRef = useRef();
@@ -50,6 +55,10 @@ const Register = () => {
         setErrMsg('');
     }, [user, pwd, matchPwd])
 
+    /**
+     * Handle form submission
+     * @param {Event} e - The form submission event.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         //if button enabled with JS hack

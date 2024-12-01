@@ -6,22 +6,24 @@ import Book from "./Book.jsx";
 
 /**
  * Book list component
- * @param data
- * @param currentPage
- * @param getAllBooks
- * @returns {Element}
+ * @param {Object} props - The properties object.
+ * @param {Object} props.data - The data object containing book information.
+ * @param {number} props.currentPage - The current page number.
+ * @param {Function} props.getAllBooks - The function to fetch all books for a given page.
+ * @returns {JSX.Element} The rendered BookList component.
  * @constructor
  */
 const BookList = ({data, currentPage, getAllBooks}) => {
     /**
      * Handle page change
-     * @param newPage
+     * @param {number} newPage - The new page number to fetch.
      */
     const handlePageChange = (newPage) => {
         if (newPage >= 0 && newPage < data.totalPages) {
             getAllBooks(newPage);
         }
     };
+
     /**
      * Render component
      */

@@ -6,9 +6,25 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository interface for managing Author entities.
+ */
 @Repository
 public interface AuthorRepo extends JpaRepository<Author, String>
 {
+    /**
+     * Finds an author by their unique identifier.
+     *
+     * @param id the unique identifier of the author.
+     * @return an Optional containing the found author, or empty if no author is found.
+     */
     Optional<Author> findAuthorById(String id);
-    Optional<Author> findAuthorByNume(String name);
+
+    /**
+     * Finds an author by their last name.
+     *
+     * @param name the last name of the author.
+     * @return an Optional containing the found author, or empty if no author is found.
+     */
+    Optional<Author> findAuthorByLastName(String name);
 }

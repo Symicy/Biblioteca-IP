@@ -5,6 +5,11 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 import * as Icons from "react-icons/fa";
 import React from "react";
 
+/**
+ * App component
+ * @returns {JSX.Element} The rendered App component.
+ * @constructor
+ */
 function App() {
 
     return (
@@ -14,7 +19,7 @@ function App() {
                     <Link to="/" className="navbar-brand bg-transparent text-dark">
                         <div className="d-flex align-items-center">
                             <h1>BIBLIOTECA</h1>
-                            <Icons.FaBook className="ms-2"style={{ fontSize: '2em' }}/>
+                            <Icons.FaBook className="ms-2" style={{ fontSize: '2em' }}/>
                         </div>
                     </Link>
                 </div>

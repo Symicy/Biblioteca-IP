@@ -4,19 +4,22 @@ import {Link} from "react-router-dom";
 import * as Icons from "react-icons/fa";
 import {login} from "../api/authService.jsx";
 
-
 /**
  * Header component
- * @param userType
- * @param nbOfBooks
- * @returns {Element}
+ * @param {string} userType - The type of the user.
+ * @param {number} nbOfBooks - The number of books.
+ * @returns {JSX.Element} The rendered Header component.
  * @constructor
  */
-const Header = ({userType,nbOfBooks}) => {
+const Header = ({userType, nbOfBooks}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    /**
+     * Handle login form submission
+     * @param {Event} event - The form submission event.
+     */
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
@@ -27,6 +30,7 @@ const Header = ({userType,nbOfBooks}) => {
             setError(error.message);
         }
     };
+
     return (
         <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
             <div className="container-fluid">
