@@ -5,6 +5,13 @@ import * as Icons from "react-icons/fa";
 import {login} from "../api/authService.jsx";
 
 
+/**
+ * Header component
+ * @param userType
+ * @param nbOfBooks
+ * @returns {Element}
+ * @constructor
+ */
 const Header = ({userType,nbOfBooks}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

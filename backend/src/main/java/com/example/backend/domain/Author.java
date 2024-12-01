@@ -11,28 +11,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.time.LocalDate;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT) // exclude null fields
-@Table(name = "book")
-
-public class Book
+@Table(name = "author")
+public class Author
 {
     @Id
     @UuidGenerator
     @Column(name = "id",unique = true, updatable = false)
     private String id;
-    private String titlu;
-    private String isbn_issn;
-    private String autor_id;
-    private String an_publicare;
-    private String status;
-    private String limba;
-    private String categorie;
-    private String pozaURL;
+    private String nume;
+    private String prenume;
+    private String data_nasterii;
+    private String data_decesului;
+    private String tara;
 }

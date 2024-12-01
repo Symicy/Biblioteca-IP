@@ -1,13 +1,14 @@
 //dezactivare eslint
 /* eslint-disable */
-import React, {useState, useEffect} from "react";
-import {getBooks, saveBook} from "../api/bookService";
+import React, {useState, useEffect, useRef} from "react";
+import {getBooks, saveBook, updatePhoto} from "../api/bookService";
 import {HashRouter, Routes, Route, Navigate} from "react-router-dom";
 import Header from "../components/Header.jsx";
 import BookList from "../components/BookList.jsx";
 
 function HomePage()
 {
+    const fileBookRef = useRef();
     const [data, setData] = useState({});
     const [currentPage, setCurrentPage] = useState(0);
     const [userType, setUserType] = useState('guest');
@@ -16,8 +17,10 @@ function HomePage()
         titlu: '',
         isbn_issn: '',
         autor_id: '',
-        data_publicare: '',
-        status: ''
+        an_publicare: '',
+        status: '',
+        limba: '',
+        categorie: ''
     });
 
 
@@ -52,16 +55,25 @@ function HomePage()
         event.preventDefault();
         try
         {
-            const respons = await saveBook(valuesBook);
-            console.log(respons);
+            const {data} = await saveBook(valuesBook);
+            const formData = new FormData();
+            formData.append("file", fileBook, fileBook.name);
+            formData.append("id", data.id);
+            const {data: photoURL}=await updatePhoto(formData);
+            setFileBook(undefined);
+            fileBookRef.current.value = null;
+            console.log(photoURL);
             //Reset form
             setValuesBook({
                 titlu: '',
                 isbn_issn: '',
                 autor_id: '',
-                data_publicare: '',
-                status: ''
+                an_publicare: '',
+                status: '',
+                limba: '',
+                categorie: ''
             });
+            getAllBooks();
         } catch (error)
         {
             console.error("Error saving book", error);
@@ -117,8 +129,24 @@ function HomePage()
                                 </div>
                                 <div className="input-group mb-3">
                                     <span className="input-group-text"
-                                          id="inputGroup-sizing-default">Data publicare:</span>
-                                    <input type="text" value={valuesBook.data_publicare} name="data_publicare"
+                                          id="inputGroup-sizing-default">An publicare:</span>
+                                    <input type="text" value={valuesBook.an_publicare} name="an_publicare"
+                                           onChange={onchangeBook} className="form-control"
+                                           aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-default" required/>
+                                </div>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text"
+                                          id="inputGroup-sizing-default">Limba:</span>
+                                    <input type="text" value={valuesBook.limba} name="limba"
+                                           onChange={onchangeBook} className="form-control"
+                                           aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-default" required/>
+                                </div>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text"
+                                          id="inputGroup-sizing-default">Categorie:</span>
+                                    <input type="text" value={valuesBook.categorie} name="categorie"
                                            onChange={onchangeBook} className="form-control"
                                            aria-label="Sizing example input"
                                            aria-describedby="inputGroup-sizing-default" required/>
@@ -148,8 +176,8 @@ function HomePage()
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="formFileBook" className="form-label">Adaugare poza carte</label>
-                                    <input className="form-control" type="file" id="formFileBook" name="pozaURL"
-                                           onChange={onchangeBookFile}/>
+                                    <input className="form-control" type="file" id="formFileBook" ref={fileBookRef}
+                                           name="pozaURL" onChange={onchangeBookFile} required/>
                                 </div>
                             </div>
                             <div className="modal-footer">

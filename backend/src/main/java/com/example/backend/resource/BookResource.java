@@ -18,6 +18,7 @@ import static com.example.backend.constant.Constant.PHOTO_DIR;
 import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
+
 @Slf4j
 @RestController
 @RequestMapping("/books")
@@ -51,6 +52,13 @@ public class BookResource
                                               @RequestParam("file") MultipartFile file)
     {
         return ResponseEntity.ok().body(bookService.uploadPhoto(id, file));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteBook(@PathVariable(value = "id") String id)
+    {
+        bookService.deleteBook(id);
+        return ResponseEntity.ok().body("Book deleted");
     }
 
 //    @GetMapping(path = "/image/{fileName}", produces = {IMAGE_PNG_VALUE, IMAGE_JPEG_VALUE})
