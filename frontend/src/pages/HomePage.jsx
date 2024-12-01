@@ -78,7 +78,7 @@ function HomePage()
             <Header userType={userType} nbOfBooks={data.totalElements}/>
             <main className="main">
                 <div className="container-fluid mt-3 mb-3">
-                     <BookList data={data} currentPage={currentPage} getAllBooks={getAllBooks}/>
+                    <BookList data={data} currentPage={currentPage} getAllBooks={getAllBooks}/>
                 </div>
             </main>
 
