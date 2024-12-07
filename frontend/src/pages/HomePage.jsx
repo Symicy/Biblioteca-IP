@@ -17,6 +17,8 @@ function HomePage()
     const [data, setData] = useState({});
     const [currentPage, setCurrentPage] = useState(0);
     const [userType, setUserType] = useState('guest');
+    const [userName, setUserName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
     const [fileBook, setFileBook] = useState(undefined);
     const [valuesBook, setValuesBook] = useState({
         title: '',
@@ -108,7 +110,7 @@ function HomePage()
 
     return (
         <>
-            <Header userType={userType} nbOfBooks={data.totalElements}/>
+            <Header userType={userType} userEmail={userEmail} userUserName={userName} setUserType={setUserType} setUserName={setUserName} setUserEmail={setUserEmail} nbOfBooks={data.totalElements}/>
             <main className="main">
                 <div className="container-fluid mt-3 mb-3">
                     <BookList data={data} currentPage={currentPage} getAllBooks={getAllBooks}/>
@@ -116,6 +118,9 @@ function HomePage()
             </main>
 
             {/* Modal */}
+            {userType&&
+                <div></div>
+            }
             <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                  tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">

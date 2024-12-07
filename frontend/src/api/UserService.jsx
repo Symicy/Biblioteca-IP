@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+const USER_API_BASE_URL = "http://localhost:8080/users";
 /**
  * Logs in a user with the provided email and password.
  *
@@ -16,3 +17,17 @@ export const login = async (email, password) => {
         throw new Error('Invalid credentials');
     }
 };
+
+export async function saveUser(user) {
+    return await axios.post(`${USER_API_BASE_URL}/register`, user);
+}
+
+export async function loginUser(email, password) {
+    //return await axios.get(`${USER_API_BASE_URL}/${id}`);
+    const response = await axios.post(`${USER_API_BASE_URL}/login`, { email, password },{
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    return response.data;
+}

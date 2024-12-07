@@ -27,4 +27,12 @@ public interface UserRepo extends JpaRepository<User, String>
      * @return an Optional containing the found user, or empty if no user is found.
      */
     Optional<User> findUserByEmail(String email);
+
+    /**
+     * Finds a user by their username.
+     *
+     * @param username the username of the user.
+     * @return an Optional containing the found user, or empty if no user is found.
+     */
+    Optional<User> findUserByUsername(String username);
 }
