@@ -98,7 +98,7 @@ public class BookService
     /**
      * Function to get the file extension from the file name.
      */
-    private final Function<String, String> fileExtension = fileName -> Optional.of(fileName)
+    private final Function<String,String> fileExtension = fileName -> Optional.of(fileName)
             .filter(name -> name.contains("."))
             .map(name -> "." + name.substring(fileName.lastIndexOf(".") + 1))
             .orElse(".png");
@@ -124,7 +124,7 @@ public class BookService
         catch (Exception e)
         {
             log.error("Error uploading photo", e);
-            throw new RuntimeException("Error uploading photo");
+            throw new RuntimeException("Error uploading photo",e);
         }
     };
 }
