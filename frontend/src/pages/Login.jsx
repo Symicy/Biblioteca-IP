@@ -1,11 +1,17 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
+import AuthContext from "./context/AuthProvider";
 import { Link } from 'react-router-dom';
 
+import axios from './api/axios';
+const LOGIN_URL = '/auth';
+
 const Login = () => {
+    const auth = useContext(AuthContext);
     const userRef = useRef();
     const errRef = useRef();
 
-    const [user, setUser] = useState('');
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
@@ -16,14 +22,38 @@ const Login = () => {
 
     useEffect(() => {
         setErrMsg('');
-    }, [user, pwd])
+    }, [email, username, pwd])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(user, pwd);
-        setUser('');
-        setPwd('');
-        setSuccess(true);
+
+        try {
+            const response = await axios.post(LOGIN_URL,
+                JSON.stringify({ email, username, pwd }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
+            console.log(JSON.stringify(response?.data));
+            const accessToken = response?.data?.accessToken;
+            setAuth({ email, username, pwd, roles, accessToken });
+            setEmail('');
+            setUsername('');
+            setPwd('');
+            setSuccess(true);
+        } catch (err) {
+            if (!err?.response) {
+                setErrMsg('No server response');
+            } else if (err.response?.status === 400) {
+                setErrMsg('Invalid email, username, or password');
+            } else if (err.response?.status === 401) {
+                setErrMsg('Unauthorized');
+            } else {
+                setErrMsg('Something went wrong');
+            }
+            errRef.current.focus();
+        }
     }
 
     return (
@@ -41,14 +71,24 @@ const Login = () => {
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1>Login</h1>
                     <form onSubmit={handleSubmit}>
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            type="email"
+                            id="email"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            required
+                        />
+
                         <label htmlFor="username">Username:</label>
                         <input
                             type="text"
                             id="username"
-                            ref={userRef}
                             autoComplete="off"
-                            onChange={(e) => setUser(e.target.value)}
-                            value={user}
+                            onChange={(e) => setUsername(e.target.value)}
+                            value={username}
                             required
                         />
 

@@ -4,12 +4,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import axios from '../api/axios.jsx';
 
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const REGISTER_URL = '/register';
 
 const Register = () => {
     const errRef = useRef();
+
+    const [username, setUsername] = useState('');
+    const [validUsername, setValidUsername] = useState(false);
+    const [usernameFocus, setUsernameFocus] = useState(false);
 
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
@@ -28,7 +33,12 @@ const Register = () => {
 
     useEffect(() => {
         setErrMsg('');
-    }, [email, pwd, matchPwd])
+    }, [username, email, pwd, matchPwd])
+
+    useEffect(() => {
+        const result = USER_REGEX.test(username);
+        setValidUsername(result);
+    }, [username])
 
     useEffect(() => {
         const result = EMAIL_REGEX.test(email);
@@ -44,15 +54,16 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const v1 = EMAIL_REGEX.test(email);
-        const v2 = PWD_REGEX.test(pwd);
-        if (!v1 || !v2) {
+        const v1 = USER_REGEX.test(username);
+        const v2 = EMAIL_REGEX.test(email);
+        const v3 = PWD_REGEX.test(pwd);
+        if (!v1 || !v2 || !v3) {
             setErrMsg('Invalid entry');
             return;
         }
         try {
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ email, pwd }),
+                JSON.stringify({ username, email, pwd }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -63,7 +74,7 @@ const Register = () => {
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 409) {
-                setErrMsg('Email Taken');
+                setErrMsg('Email or Username Taken');
             } else {
                 setErrMsg('Registration Failed')
             }
@@ -85,6 +96,33 @@ const Register = () => {
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1>Register</h1>
                     <form onSubmit={handleSubmit}>
+                        <label htmlFor="username">
+                            Username:
+                            <span className={validUsername ? "valid" : "hide"}>
+                                <FontAwesomeIcon icon={faCheck} />
+                            </span>
+                            <span className={validUsername || !username ? "hide" : "invalid"}>
+                                <FontAwesomeIcon icon={faTimes} />
+                            </span>
+                        </label>
+                        <input
+                            type="text"
+                            id="username"
+                            autoComplete="off"
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                            aria-invalid={validUsername ? "false" : "true"}
+                            aria-describedby="uidnote"
+                            onFocus={() => setUsernameFocus(true)}
+                            onBlur={() => setUsernameFocus(false)}
+                        />
+                        <p id="uidnote" className={usernameFocus && username && !validUsername ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            4 to 24 characters.<br />
+                            Must begin with a letter.<br />
+                            Letters, numbers, underscores, hyphens allowed.
+                        </p>
+
                         <label htmlFor="email">
                             Email:
                             <span className={validEmail ? "valid" : "hide"}>
@@ -162,7 +200,7 @@ const Register = () => {
                             Must match the first password input field.
                         </p>
 
-                        <button disabled={!validEmail || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                        <button disabled={!validUsername || !validEmail || !validPwd || !validMatch ? true : false}>Sign Up</button>
                     </form>
                     <p>
                         Already registered?<br />
