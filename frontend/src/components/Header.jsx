@@ -11,7 +11,7 @@ import {login, loginUser} from "../api/UserService.jsx";
  * @returns {JSX.Element} The rendered Header component.
  * @constructor
  */
-const Header = ({userType, userUserName, userEmail, setUserType, setUserName, setUserEmail, nbOfBooks}) => {
+const Header = ({userType, userName, userEmail, setUserType, setUserName, setUserEmail, nbOfBooks}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -108,7 +108,7 @@ const Header = ({userType, userUserName, userEmail, setUserType, setUserName, se
                     <div className="dropdown">
                         <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
                                 aria-expanded="false" data-bs-auto-close="outside">
-                            {userUserName}
+                            {userName}
                         </button>
                         <div className="dropdown-menu dropdown-menu-end" style={{ minWidth: "300px" }}>
                             <Link className="dropdown-item" to="/profile">Profil</Link>

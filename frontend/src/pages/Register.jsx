@@ -65,7 +65,7 @@ const Register = () => {
         try {
             const valuesUser = {
                 email: email,
-                username: email,
+                username: username,
                 type: 'user',
                 password: pwd,
             }

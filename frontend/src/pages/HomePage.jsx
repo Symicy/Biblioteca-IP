@@ -110,7 +110,7 @@ function HomePage()
 
     return (
         <>
-            <Header userType={userType} userEmail={userEmail} userUserName={userName} setUserType={setUserType} setUserName={setUserName} setUserEmail={setUserEmail} nbOfBooks={data.totalElements}/>
+            <Header userType={userType} userEmail={userEmail} userName={userName} setUserType={setUserType} setUserName={setUserName} setUserEmail={setUserEmail} nbOfBooks={data.totalElements}/>
             <main className="main">
                 <div className="container-fluid mt-3 mb-3">
                     <BookList data={data} currentPage={currentPage} getAllBooks={getAllBooks}/>
