@@ -3,6 +3,7 @@ import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import axios from '../api/axios.jsx';
+import {saveUser} from "../api/UserService.jsx";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -62,19 +63,19 @@ const Register = () => {
             return;
         }
         try {
-            const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ username, email, pwd }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
+            const valuesUser = {
+                email: email,
+                username: username,
+                type: 'user',
+                password: pwd,
+            }
+            await saveUser(valuesUser);
             setSuccess(true);
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 409) {
-                setErrMsg('Email or Username Taken');
+                setErrMsg('Email Taken');
             } else {
                 setErrMsg('Registration Failed')
             }
@@ -205,7 +206,7 @@ const Register = () => {
                     <p>
                         Already registered?<br />
                         <span className="line">
-                            <Link to="/login">Login</Link>
+                            <Link to="/">Login</Link>
                         </span>
                     </p>
                 </section>

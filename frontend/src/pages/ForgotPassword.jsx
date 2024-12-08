@@ -15,3 +15,5 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
+
+///to do: implement the forgot password form
