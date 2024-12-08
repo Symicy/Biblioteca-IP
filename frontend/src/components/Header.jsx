@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-unused-vars
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import * as Icons from "react-icons/fa";
-import {login} from "../api/authService.jsx";
+import { login } from "../api/authService.jsx";
 
 /**
  * Header component
@@ -11,8 +11,9 @@ import {login} from "../api/authService.jsx";
  * @returns {JSX.Element} The rendered Header component.
  * @constructor
  */
-const Header = ({userType, nbOfBooks}) => {
+const Header = ({ userType, nbOfBooks }) => {
     const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
@@ -23,7 +24,7 @@ const Header = ({userType, nbOfBooks}) => {
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            const user = await login(email, password);
+            const user = await login(email, username, password);
             setUserType(user.type);
             setError('');
         } catch (error) {
@@ -51,6 +52,11 @@ const Header = ({userType, nbOfBooks}) => {
                                        placeholder="email@exemplu.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
                             </div>
                             <div className="mb-3">
+                                <label htmlFor="exampleDropdownFormUsername1" className="form-label">Username</label>
+                                <input type="text" className="form-control" id="exampleDropdownFormUsername1"
+                                       placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                            </div>
+                            <div className="mb-3">
                                 <label htmlFor="exampleDropdownFormPassword1" className="form-label">Parola</label>
                                 <input type="password" className="form-control" id="exampleDropdownFormPassword1"
                                        placeholder="Parola" value={password} onChange={(e) => setPassword(e.target.value)} required />
@@ -59,7 +65,7 @@ const Header = ({userType, nbOfBooks}) => {
                             <button type="submit" className="btn btn-primary">Logare</button>
                         </form>
                         <div className="dropdown-divider"></div>
-                        <Link className="dropdown-item" to="/register">Inregistrare</Link>
+                        <Link className="dropdown-item" to="/register">Register</Link>
                         <Link className="dropdown-item" to="/forgot-password">Parola uitata?</Link>
                     </div>
                 </div>
