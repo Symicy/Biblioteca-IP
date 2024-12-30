@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -43,6 +44,11 @@ public class BookService
     public Page<Book> getAllBooks(int page, int size)
     {
         return bookRepo.findAll(PageRequest.of(page, size, Sort.by("title")));
+    }
+
+    public List<Book> getAllBooksNoPagination()
+    {
+        return bookRepo.findAll();
     }
 
     /**

@@ -1,0 +1,10 @@
+{
+  "source": {
+    "include": ["src/pages", "src/components", "src/api"],
+    "includePattern": ".+\\.(jsx)$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "opts": {
+    "destination": "C:\\Users\\alxsi\\Desktop\\JavaDoc\\frontend"
+  }
+}

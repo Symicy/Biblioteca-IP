@@ -28,7 +28,7 @@ class UserResourceTest {
     }
 
     @Test
-    void createUser_createsAndReturnsUser() {
+    void createUser_returnsCreatedWhenUserIsValid() {
         User user = new User();
         when(userService.createUser(any(User.class))).thenReturn(user);
 
@@ -39,7 +39,7 @@ class UserResourceTest {
     }
 
     @Test
-    void createUser_returnsConflictWhenUserExists() {
+    void createUser_returnsConflictWhenUserAlreadyExists() {
         when(userService.createUser(any(User.class))).thenThrow(new RuntimeException("User already exists"));
 
         ResponseEntity<User> response = userResource.createUser(new User());
@@ -49,7 +49,7 @@ class UserResourceTest {
     }
 
     @Test
-    void loginUser_returnsUserWhenCredentialsAreCorrect() {
+    void loginUser_returnsOkWhenCredentialsAreCorrect() {
         User user = new User();
         when(userService.loginUser(any(User.class))).thenReturn(user);
 
@@ -66,6 +66,22 @@ class UserResourceTest {
         ResponseEntity<User> response = userResource.loginUser(new User());
 
         assertEquals(401, response.getStatusCodeValue());
+        assertEquals(null, response.getBody());
+    }
+
+    @Test
+    void createUser_returnsBadRequestWhenUserIsNull() {
+        ResponseEntity<User> response = userResource.createUser(null);
+
+        assertEquals(400, response.getStatusCodeValue());
+        assertEquals(null, response.getBody());
+    }
+
+    @Test
+    void loginUser_returnsBadRequestWhenUserIsNull() {
+        ResponseEntity<User> response = userResource.loginUser(null);
+
+        assertEquals(400, response.getStatusCodeValue());
         assertEquals(null, response.getBody());
     }
 }

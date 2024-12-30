@@ -13,6 +13,7 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import static com.example.backend.constant.Constant.PHOTO_DIR;
 import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
@@ -50,9 +51,15 @@ public class BookResource
      */
     @GetMapping
     public ResponseEntity<Page<Book>> getBooks(@RequestParam(value = "page", defaultValue = "0") int page,
-                                               @RequestParam(value = "size", defaultValue = "10") int size)
+                                               @RequestParam(value = "size", defaultValue = "12") int size)
     {
         return ResponseEntity.ok().body(bookService.getAllBooks(page, size));
+    }
+
+    @GetMapping("/no-pagination")
+    public ResponseEntity<List<Book>> getBooksNoPagination()
+    {
+        return ResponseEntity.ok().body(bookService.getAllBooksNoPagination());
     }
 
     /**
