@@ -73,13 +73,20 @@ const Header = ({userType, userName, userEmail, setUserType, setUserName, setUse
             <div className="container-fluid">
                 <h3 className="text-light">Numar carti: {nbOfBooks}</h3>
                 {userType === 'admin' &&
-                    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        Adaugare carte
-                    </button>
+                    <>
+                        <button type="button" className="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#addBookBackdrop">
+                            Adaugare carte
+                        </button>
+                        <button type="button" className="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#addAuthorBackdrop">
+                            Adaugare autor
+                        </button>
+                    </>
                 }
                 {userType === 'guest' &&
-                <div className="dropdown">
-                    <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                    <div className="dropdown">
+                        <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
                             aria-expanded="false" data-bs-auto-close="outside">
                         Utilizator
                     </button>

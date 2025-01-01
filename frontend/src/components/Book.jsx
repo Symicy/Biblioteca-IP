@@ -19,9 +19,11 @@ import { Link } from "react-router-dom";
  * @returns {JSX.Element} The rendered Book component.
  * @constructor
  */
-const Book = ({ book }) => {
+const Book = ({ book, author }) => {
+
+    console.log(author);
     return (
-        <Link to={`/books/${book.id}`} className="card">
+        <Link to={`/books/${book.id}`} className="card" style={{textDecoration:'none'}}>
             <div className="card max-auto">
                 <div className="row g-0">
                     <div className="col-md-4">
@@ -30,12 +32,12 @@ const Book = ({ book }) => {
                     <div className="col-md-8">
                         <div className="card-body">
                             <h3 className="card-title">{book.title}</h3>
-                            <h4><span className="badge text-bg-secondary">Nume autor:</span>{book.authorId}</h4>
-                            <h4><span className="badge text-bg-secondary">ISBN/ISSN:</span>{book.isbnIssn}</h4>
-                            <h4><span className="badge text-bg-secondary">Status:</span>{book.status}</h4>
-                            <h4><span className="badge text-bg-secondary">An publicare:</span>{book.yearOfPublication}</h4>
-                            <h4><span className="badge text-bg-secondary">Limba:</span>{book.language}</h4>
-                            <h4><span className="badge text-bg-secondary">Categorie:</span>{book.category}</h4>
+                            <h4><span className="badge text-bg-secondary">Nume autor:</span>  {author ? `${author.firstName} ${author.lastName}` : 'Nespecificat'}</h4>
+                            <h4><span className="badge text-bg-secondary">ISBN/ISSN:</span>  {book.isbnIssn}</h4>
+                            <h4><span className="badge text-bg-secondary">Status:</span>  {book.status}</h4>
+                            <h4><span className="badge text-bg-secondary">An publicare:</span>  {book.yearOfPublication}</h4>
+                            <h4><span className="badge text-bg-secondary">Limba:</span>  {book.language}</h4>
+                            <h4><span className="badge text-bg-secondary">Categorie:</span>  {book.category}</h4>
                         </div>
                     </div>
                 </div>
