@@ -12,15 +12,9 @@ export async function saveBook(book) {
     return await axios.post(BOOK_API_BASE_URL, book);
 }
 
-/**
- * Retrieves a paginated list of books.
- *
- * @param {number} [page=0] - The page number to retrieve.
- * @param {number} [size=10] - The number of books per page.
- * @returns {Promise<Object>} The response data from the get request.
- */
-export async function getBooks(page=0, size=10) {
-    return await axios.get(`${BOOK_API_BASE_URL}?page=${page}&size=${size}`);
+
+export async function getBooksNoPagination() {
+    return await axios.get(`${BOOK_API_BASE_URL}/no-pagination`);
 }
 
 /**
