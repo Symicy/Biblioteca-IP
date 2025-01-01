@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {getBooks, getBooksNoPagination, saveBook, updatePhoto} from "../api/bookService";
+import {getBooksNoPagination, saveBook, updatePhoto} from "../api/bookService";
 import { getAuthors } from "../api/AuthorService";
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "../components/Header.jsx";
@@ -9,7 +9,6 @@ import { saveAuthor } from "../api/AuthorService.jsx";
 function HomePage() {
     const fileBookRef = useRef();
     const [data, setData] = useState({});
-    const [currentPage, setCurrentPage] = useState(0);
     const [userType, setUserType] = useState('guest');
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('');
@@ -32,17 +31,6 @@ function HomePage() {
     });
     const [authors, setAuthors] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-
-    const getAllBooks = async (page = 0, size = 12) => {
-        try {
-            setCurrentPage(page);
-            const { data } = await getBooks(page, size);
-            setData(data);
-            console.log(data);
-        } catch (error) {
-            console.error("Error getting books", error);
-        }
-    };
 
     const getAllBooksNoPagination = async () => {
         try {
