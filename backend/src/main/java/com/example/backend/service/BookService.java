@@ -74,6 +74,11 @@ public class BookService
         return bookRepo.save(book);
     }
 
+    public Book updateBook(Book book)
+    {
+        return bookRepo.save(book);
+    }
+
     /**
      * Deletes a book by its unique identifier.
      *

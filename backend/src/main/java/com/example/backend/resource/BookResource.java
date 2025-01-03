@@ -56,6 +56,12 @@ public class BookResource
         return ResponseEntity.ok().body(bookService.getAllBooks(page, size));
     }
 
+    @PutMapping
+    public ResponseEntity<Book> updateBook(@RequestBody Book book)
+    {
+        return ResponseEntity.ok().body(bookService.updateBook(book));
+    }
+
     @GetMapping("/no-pagination")
     public ResponseEntity<List<Book>> getBooksNoPagination()
     {

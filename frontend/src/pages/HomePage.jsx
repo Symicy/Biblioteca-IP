@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getBooksNoPagination, saveBook, updatePhoto } from "../api/bookService";
-import { getAuthors, saveAuthor } from "../api/AuthorService";
+import {getBooksNoPagination, saveBook, updatePhoto} from "../api/bookService";
+import { getAuthors } from "../api/AuthorService";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "../components/Header.jsx";
 import BookList from "../components/BookList.jsx";
+import { saveAuthor } from "../api/AuthorService.jsx";
 
-function HomePage() {
+function HomePage({setNbOfBooks}) {
     const fileBookRef = useRef();
     const [data, setData] = useState({});
-    const [userType, setUserType] = useState('guest');
-    const [userName, setUserName] = useState('');
-    const [userEmail, setUserEmail] = useState('');
     const [fileBook, setFileBook] = useState(undefined);
     const [valuesBook, setValuesBook] = useState({
         title: '',
@@ -119,10 +118,8 @@ function HomePage() {
 
     return (
         <>
-            <Header userType={userType} userEmail={userEmail} userName={userName} setUserType={setUserType}
-                    setUserName={setUserName} setUserEmail={setUserEmail} nbOfBooks={data.totalElements} />
             <main className="main">
-                <div className="container-fluid mt-3 mb-3">
+                <div className="container-fluid">
                     <BookList books={data} authors={authors} />
                 </div>
             </main>
