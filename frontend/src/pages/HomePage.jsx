@@ -119,7 +119,7 @@ function HomePage({setNbOfBooks}) {
     return (
         <>
             <main className="main">
-                <div className="container-fluid mt-3 mb-3">
+                <div className="container-fluid">
                     <BookList books={data} authors={authors} />
                 </div>
             </main>

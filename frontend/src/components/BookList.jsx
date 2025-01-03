@@ -55,13 +55,13 @@ const BookList = ({ books = [], authors = [] }) => {
         <main className="main">
             <div className="container-fluid">
                 <i
-                    className={`fas fa-${isSidebarVisible ? "times" : "bars"} fa-2x mb-3`}
+                    className={`fas fa-${isSidebarVisible ? "times" : "bars"} fa-2x mb-3 mt-3`}
                     onClick={toggleSidebar}
                     style={{ cursor: "pointer" }}
                 ></i>
                 <div className="row">
                     {isSidebarVisible && (
-                        <div className="col-md-2" style={{ backgroundColor: "#1b1e21", color: "#fff", padding: "20px", height: "100vh", position: "fixed", left: "0" }}>
+                        <div className="col-md-2 border border-primary" style={{ backgroundColor: "", color: "", padding: "20px", height: "100vh", position: "fixed", left: "0" }}>
                             <h3>Filtreaza cartile</h3>
                             <div className="col">
                                 <div className="col-md-8 mb-2">
@@ -127,31 +127,31 @@ const BookList = ({ books = [], authors = [] }) => {
                                 </div>
                             ))}
                         </div>
-
-                        {booksWithAuthors.length > 0 && (
-                            <div className="pagination-container">
-                                <button
-                                    disabled={currentPage === 1}
-                                    onClick={() => handlePageChange(currentPage - 1)}
-                                    className="btn btn-primary"
-                                >
-                                    Previous
-                                </button>
-                                <span className="mx-3">
-                                    Page {currentPage} of {totalPages}
-                                </span>
-                                <button
-                                    disabled={currentPage === totalPages}
-                                    onClick={() => handlePageChange(currentPage + 1)}
-                                    className="btn btn-primary"
-                                >
-                                    Next
-                                </button>
-                            </div>
-                        )}
                     </div>
                 </div>
+                {booksWithAuthors.length > 12 && (
+                    <div className="pagination-container text-center mb-5">
+                        <button
+                            disabled={currentPage === 1}
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            className="btn btn-primary"
+                        >
+                            Previous
+                        </button>
+                        <span className="mx-3">
+                                    Page {currentPage} of {totalPages}
+                                </span>
+                        <button
+                            disabled={currentPage === totalPages}
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            className="btn btn-primary"
+                        >
+                            Next
+                        </button>
+                    </div>
+                )}
             </div>
+
         </main>
     );
 };

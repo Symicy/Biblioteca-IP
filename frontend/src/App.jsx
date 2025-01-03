@@ -6,6 +6,7 @@ import BookDetail from "./pages/BookDetail.jsx";
 import Header from "./components/Header.jsx";
 import * as Icons from "react-icons/fa";
 import React, { useState, useEffect } from "react";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 /**
  * App component
