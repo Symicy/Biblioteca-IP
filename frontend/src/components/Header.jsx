@@ -16,14 +16,11 @@ const Header = ({userType, userName, userEmail, setUserType, setUserName, setUse
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    useEffect(() =>
-    {
-        // Get the user from the local storage
+    useEffect(() => {
         const storedUserType = localStorage.getItem('userType');
         const storedUserName = localStorage.getItem('userName');
         const storedUserEmail = localStorage.getItem('userEmail');
-        if(storedUserType && storedUserName && storedUserEmail)
-        {
+        if (storedUserType && storedUserName && storedUserEmail) {
             setUserType(storedUserType);
             setUserName(storedUserName);
             setUserEmail(storedUserEmail);
@@ -67,8 +64,6 @@ const Header = ({userType, userName, userEmail, setUserType, setUserName, setUse
     };
 
     return (
-
-
         <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
             <div className="container-fluid">
                 {showControls ?

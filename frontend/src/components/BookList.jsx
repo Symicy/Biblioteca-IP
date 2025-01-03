@@ -10,12 +10,13 @@ const BookList = ({ books = [], authors = [] }) => {
         yearOfPublication: ""
     });
     const [currentPage, setCurrentPage] = useState(1);
+    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
     const booksPerPage = 12;
 
     const handleFilterChange = (event) => {
         const { name, value } = event.target;
         setFilters({ ...filters, [name]: value });
-        setCurrentPage(1);
+        setCurrentPage(1); // Reset to the first page when filter changes
     };
 
     const booksArray = Array.isArray(books) ? books : [];
@@ -46,95 +47,111 @@ const BookList = ({ books = [], authors = [] }) => {
         setCurrentPage(newPage);
     };
 
+    const toggleSidebar = () => {
+        setIsSidebarVisible(!isSidebarVisible);
+    };
+
     return (
         <main className="main">
-            <div className="filter-container">
-                <h2>Filtreaza cartile</h2>
+            <div className="container-fluid">
+                <i
+                    className={`fas fa-${isSidebarVisible ? "times" : "bars"} fa-2x mb-3`}
+                    onClick={toggleSidebar}
+                    style={{ cursor: "pointer" }}
+                ></i>
                 <div className="row">
-                    <div className="col-md-2">
-                        <label>Autor</label>
-                        <input
-                            type="text"
-                            name="author"
-                            value={filters.author}
-                            onChange={handleFilterChange}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="col-md-2">
-                        <label>Titlu</label>
-                        <input
-                            type="text"
-                            name="title"
-                            value={filters.title}
-                            onChange={handleFilterChange}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="col-md-2">
-                        <label>Categorie</label>
-                        <input
-                            type="text"
-                            name="category"
-                            value={filters.category}
-                            onChange={handleFilterChange}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="col-md-2">
-                        <label>Limba</label>
-                        <input
-                            type="text"
-                            name="language"
-                            value={filters.language}
-                            onChange={handleFilterChange}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="col-md-2">
-                        <label>An publicare</label>
-                        <input
-                            type="text"
-                            name="yearOfPublication"
-                            value={filters.yearOfPublication}
-                            onChange={handleFilterChange}
-                            className="form-control"
-                        />
+                    {isSidebarVisible && (
+                        <div className="col-md-2" style={{ backgroundColor: "#1b1e21", color: "#fff", padding: "20px", height: "100vh", position: "fixed", left: "0" }}>
+                            <h3>Filtreaza cartile</h3>
+                            <div className="col">
+                                <div className="col-md-8 mb-2">
+                                    <label>Autor</label>
+                                    <input
+                                        type="text"
+                                        name="author"
+                                        value={filters.author}
+                                        onChange={handleFilterChange}
+                                        className="form-control form-control-sm"
+                                    />
+                                </div>
+                                <div className="col-md-8 mb-2">
+                                    <label>Titlu</label>
+                                    <input
+                                        type="text"
+                                        name="title"
+                                        value={filters.title}
+                                        onChange={handleFilterChange}
+                                        className="form-control form-control-sm"
+                                    />
+                                </div>
+                                <div className="col-md-8 mb-2">
+                                    <label>Categorie</label>
+                                    <input
+                                        type="text"
+                                        name="category"
+                                        value={filters.category}
+                                        onChange={handleFilterChange}
+                                        className="form-control form-control-sm"
+                                    />
+                                </div>
+                                <div className="col-md-8 mb-2">
+                                    <label>Limba</label>
+                                    <input
+                                        type="text"
+                                        name="language"
+                                        value={filters.language}
+                                        onChange={handleFilterChange}
+                                        className="form-control form-control-sm"
+                                    />
+                                </div>
+                                <div className="col-md-8 mb-2">
+                                    <label>An publicare</label>
+                                    <input
+                                        type="text"
+                                        name="yearOfPublication"
+                                        value={filters.yearOfPublication}
+                                        onChange={handleFilterChange}
+                                        className="form-control form-control-sm"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    <div className={`col-md-${isSidebarVisible ? "10 offset-md-2" : "12"}`}>
+                        {currentBooks.length === 0 && <div>No books found</div>}
+
+                        <div className="row ms-5 me-5 mb-5 mt-5">
+                            {currentBooks.map((book) => (
+                                <div className="col-md-4 mb-3" key={book.id}>
+                                    <Book book={book} author={book.author} />
+                                </div>
+                            ))}
+                        </div>
+
+                        {booksWithAuthors.length > 0 && (
+                            <div className="pagination-container">
+                                <button
+                                    disabled={currentPage === 1}
+                                    onClick={() => handlePageChange(currentPage - 1)}
+                                    className="btn btn-primary"
+                                >
+                                    Previous
+                                </button>
+                                <span className="mx-3">
+                                    Page {currentPage} of {totalPages}
+                                </span>
+                                <button
+                                    disabled={currentPage === totalPages}
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    className="btn btn-primary"
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
-
-            {currentBooks.length === 0 && <div>No books found</div>}
-
-            <div className="row ms-5 me-5 mb-5 mt-5">
-                {currentBooks.map((book) => (
-                    <div className="col-md-4 mb-3" key={book.id}>
-                        <Book book={book} author={book.author} authors={authors}/>
-                    </div>
-                ))}
-            </div>
-
-            {booksWithAuthors.length > 0 && (
-                <div className="pagination-container">
-                    <button
-                        disabled={currentPage === 1}
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        className="btn btn-primary"
-                    >
-                        Previous
-                    </button>
-                    <span className="mx-3">
-                        Page {currentPage} of {totalPages}
-                    </span>
-                    <button
-                        disabled={currentPage === totalPages}
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        className="btn btn-primary"
-                    >
-                        Next
-                    </button>
-                </div>
-            )}
         </main>
     );
 };
