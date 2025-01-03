@@ -19,11 +19,10 @@ import { Link } from "react-router-dom";
  * @returns {JSX.Element} The rendered Book component.
  * @constructor
  */
-const Book = ({ book, author }) => {
+const Book = ({ book, author , authors}) => {
 
-    console.log(author);
     return (
-        <Link to={`/books/${book.id}`} className="card" style={{textDecoration:'none'}}>
+        <Link to={`/books/${book.id}`} state ={{book, author, authors}} className="card" style={{textDecoration:'none'}}>
             <div className="card max-auto">
                 <div className="row g-0">
                     <div className="col-md-4">

@@ -6,12 +6,9 @@ import Header from "../components/Header.jsx";
 import BookList from "../components/BookList.jsx";
 import { saveAuthor } from "../api/AuthorService.jsx";
 
-function HomePage() {
+function HomePage({setNbOfBooks}) {
     const fileBookRef = useRef();
     const [data, setData] = useState({});
-    const [userType, setUserType] = useState('guest');
-    const [userName, setUserName] = useState('');
-    const [userEmail, setUserEmail] = useState('');
     const [fileBook, setFileBook] = useState(undefined);
     const [valuesBook, setValuesBook] = useState({
         title: '',
@@ -36,7 +33,8 @@ function HomePage() {
         try {
             const { data } = await getBooksNoPagination();
             setData(data);
-            console.log(data);
+            setNbOfBooks(data.length);
+            console.log("Data", data);
         } catch (error) {
             console.error("Error getting books", error);
         }
@@ -112,7 +110,6 @@ function HomePage() {
     };
 
     useEffect(() => {
-        //getAllBooks();
         getAllBooksNoPagination();
         getAllAuthors();
     }, []);
@@ -123,8 +120,6 @@ function HomePage() {
 
     return (
         <>
-            <Header userType={userType} userEmail={userEmail} userName={userName} setUserType={setUserType}
-                setUserName={setUserName} setUserEmail={setUserEmail} nbOfBooks={data.totalElements} />
             <main className="main">
                 <div className="container-fluid mt-3 mb-3">
                     <BookList books={data} authors={authors} />

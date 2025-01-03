@@ -15,7 +15,7 @@ const BookList = ({ books = [], authors = [] }) => {
     const handleFilterChange = (event) => {
         const { name, value } = event.target;
         setFilters({ ...filters, [name]: value });
-        setCurrentPage(1); // Resetăm la prima pagină când schimbăm filtrul
+        setCurrentPage(1);
     };
 
     const booksArray = Array.isArray(books) ? books : [];
@@ -109,7 +109,7 @@ const BookList = ({ books = [], authors = [] }) => {
             <div className="row ms-5 me-5 mb-5 mt-5">
                 {currentBooks.map((book) => (
                     <div className="col-md-4 mb-3" key={book.id}>
-                        <Book book={book} author={book.author} />
+                        <Book book={book} author={book.author} authors={authors}/>
                     </div>
                 ))}
             </div>

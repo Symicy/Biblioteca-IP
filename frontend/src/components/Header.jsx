@@ -11,7 +11,7 @@ import {login, loginUser} from "../api/UserService.jsx";
  * @returns {JSX.Element} The rendered Header component.
  * @constructor
  */
-const Header = ({userType, userName, userEmail, setUserType, setUserName, setUserEmail, nbOfBooks}) => {
+const Header = ({userType, userName, userEmail, setUserType, setUserName, setUserEmail, nbOfBooks, showControls}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -71,8 +71,13 @@ const Header = ({userType, userName, userEmail, setUserType, setUserName, setUse
 
         <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
             <div className="container-fluid">
-                <h3 className="text-light">Numar carti: {nbOfBooks}</h3>
-                {userType === 'admin' &&
+                {showControls ?
+                    (<h3 className="text-light">Numar carti: {nbOfBooks}</h3>) :
+                    (
+                        <div className=""></div>
+                    )
+                }
+                {userType === 'admin' && showControls &&
                     <>
                         <button type="button" className="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#addBookBackdrop">
