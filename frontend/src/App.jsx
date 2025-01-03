@@ -4,6 +4,7 @@ import Register from "./pages/Register.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import * as Icons from "react-icons/fa";
 import React from "react";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 /**
