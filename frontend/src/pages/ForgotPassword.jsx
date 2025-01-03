@@ -4,40 +4,43 @@ import axios from 'axios';
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
+
+    const handleChange = (e) => {
+        setEmail(e.target.value);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = { email: email };
-        axios.post('/api/forgot-password', data).then(
-            res => {
-                setMessage('Password reset link has been sent to your email.');
-            }
-        ).catch(
-            err => {
-                setMessage('Error sending password reset link. Please try again.');
-            }
-        );
+        try {
+            const response = await axios.post('forgot-password', { email });
+            setMessage('Password reset link sent!');
+            setError('');
+            console.log(response);
+        } catch (err) {
+            setError('Error sending password reset link');
+            setMessage('');
+            console.log(err);
+        }
     };
 
     return (
-        <div className="container mt-5">
-            <h2>Forgot Password</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">Send Reset Link</button>
-            </form>
-            {message && <div className="mt-3 alert alert-info">{message}</div>}
-        </div>
+        <form onSubmit={handleSubmit}>
+            <h3>Forgot Password</h3>
+            <div className="form-group">
+                <label>Email</label>
+                <input
+                    type="email"
+                    className="form-control"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={handleChange}
+                />
+            </div>
+            <button className="btn btn-primary btn-block">Submit</button>
+            {message && <p className="text-success">{message}</p>}
+            {error && <p className="text-danger">{error}</p>}
+        </form>
     );
 };
 
