@@ -54,15 +54,13 @@ const BookList = ({ books = [], authors = [] }) => {
     return (
         <main className="main">
             <div className="container-fluid">
-                <i
-                    className={`fas fa-${isSidebarVisible ? "times" : "bars"} fa-2x mb-3 mt-3`}
-                    onClick={toggleSidebar}
-                    style={{ cursor: "pointer" }}
-                ></i>
                 <div className="row">
                     {isSidebarVisible && (
-                        <div className="col-md-2 border border-primary" style={{ backgroundColor: "", color: "", padding: "20px", height: "100vh", position: "fixed", left: "0" }}>
+                        <div className="col-md-2 border border-primary" style={{ backgroundColor: "#49ACEA", color: "floralwhite", padding: "20px", height: "100vh", position: "fixed", left: "0", top:"70px" }}>
                             <h3>Filtreaza cartile</h3>
+                            <div className="mb-3">
+                                <strong>Numar de carti: {filteredBooks.length}</strong>
+                            </div>
                             <div className="col">
                                 <div className="col-md-8 mb-2">
                                     <label>Autor</label>
@@ -117,13 +115,25 @@ const BookList = ({ books = [], authors = [] }) => {
                             </div>
                         </div>
                     )}
+                    <i
+                        className={`fas fa-${isSidebarVisible ? "times" : "bars"} fa-2x mb-3 mt-5`}
+                        onClick={toggleSidebar}
+                        style={{
+                            cursor: "pointer",
+                            position: "fixed",
+                            left: isSidebarVisible ? "255px" : "20px",
+                            top: "50px",
+                            zIndex: 1000,
+                            color:"floralwhite"
+                        }}
+                    ></i>
                     <div className={`col-md-${isSidebarVisible ? "10 offset-md-2" : "12"}`}>
                         {currentBooks.length === 0 && <div>No books found</div>}
 
                         <div className="row ms-5 me-5 mb-5 mt-5">
                             {currentBooks.map((book) => (
                                 <div className="col-md-4 mb-3" key={book.id}>
-                                    <Book book={book} author={book.author} />
+                                    <Book book={book} author={book.author} authors={authors} />
                                 </div>
                             ))}
                         </div>
@@ -139,8 +149,8 @@ const BookList = ({ books = [], authors = [] }) => {
                             Previous
                         </button>
                         <span className="mx-3">
-                                    Page {currentPage} of {totalPages}
-                                </span>
+                            Page {currentPage} of {totalPages}
+                        </span>
                         <button
                             disabled={currentPage === totalPages}
                             onClick={() => handlePageChange(currentPage + 1)}
@@ -151,7 +161,6 @@ const BookList = ({ books = [], authors = [] }) => {
                     </div>
                 )}
             </div>
-
         </main>
     );
 };

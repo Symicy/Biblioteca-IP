@@ -51,23 +51,13 @@ function App() {
 
     return (
         <HashRouter>
-            <div className="container-fluid">
-                <div className="d-flex justify-content-center">
-                    <Link to="/" className="navbar-brand bg-transparent text-dark">
-                        <div className="d-flex align-items-center">
-                            <h1>BIBLIOTECA</h1>
-                            <Icons.FaBook className="ms-2" style={{ fontSize: "2em" }} />
-                        </div>
-                    </Link>
-                </div>
-            </div>
-            <HeaderConst />
+            <HeaderConst></HeaderConst>
             <Routes>
-                <Route path="/" element={<Navigate to={"/books"} />} />
-                <Route path="/books" element={<HomePage setNbOfBooks={setNbOfBooks} />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/books/:bookId" element={<BookDetail userType={userType}/>} />
+                <Route path="/" element={<Navigate to={"/books"}/>}/>
+                <Route path="/books" element={<HomePage setNbOfBooks={setNbOfBooks}/>}/>
+                <Route path="/register" element={<Register/>}/>
+                <Route path="/forgot-password" element={<ForgotPassword/>}/>
+                <Route path="/books/:bookId" element={<BookDetail userType={userType}/>}/>
             </Routes>
         </HashRouter>
     );
