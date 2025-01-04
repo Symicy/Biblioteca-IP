@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import * as Icons from "react-icons/fa";
 import {login, loginUser} from "../api/UserService.jsx";
+import { FaBook, FaUser } from "react-icons/fa";
 
 /**
  * Header component
@@ -64,62 +65,78 @@ const Header = ({userType, userName, userEmail, setUserType, setUserName, setUse
     };
 
     return (
-        <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+        <nav className="navbar fixed-top border-bottom border-body" data-bs-theme="dark"
+             style={{backgroundColor: "#49ACEA", color: "floralwhite"}}>
             <div className="container-fluid">
-                {showControls ?
-                    (<h3 className="text-light">Numar carti: {nbOfBooks}</h3>) :
-                    (
-                        <div className=""></div>
-                    )
-                }
+                <Link to="/" className="navbar-brand">
+                    <div className="d-flex align-items-center">
+                        <h1>BIBLIOTECA</h1>
+                        <Icons.FaBook className="ms-2" style={{fontSize: "2em", color: "black"}}/>
+                    </div>
+                </Link>
                 {userType === 'admin' && showControls &&
-                    <>
-                        <button type="button" className="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#addBookBackdrop">
-                            Adaugare carte
+                    <div style={{display: 'flex', alignItems: 'center', marginRight: "90px"}}>
+                        <button type="button" className="btn"
+                                style={{marginRight: '15px', backgroundColor: "#6B5F57", color: "floralwhite"}}
+                                data-bs-toggle="modal" data-bs-target="#addBookBackdrop">
+                            <i className="fas fa-book"></i> Adaugare carte
                         </button>
-                        <button type="button" className="btn btn-primary" data-bs-toggle="modal"
+                        <button type="button" className="btn" style={{backgroundColor: "#6B5F57", color: "floralwhite"}}
+                                data-bs-toggle="modal"
                                 data-bs-target="#addAuthorBackdrop">
-                            Adaugare autor
+                            <i className="fas fa-user"></i> Adaugare autor
                         </button>
-                    </>
+                    </div>
                 }
                 {userType === 'guest' &&
                     <div className="dropdown">
-                        <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false" data-bs-auto-close="outside">
-                        Utilizator
-                    </button>
-                    <div className="dropdown-menu dropdown-menu-end" style={{ minWidth: "300px" }}>
-                        <form className="px-4 py-3" onSubmit={handleLogin}>
-                            <div className="mb-3">
-                                <label htmlFor="exampleDropdownFormEmail1" className="form-label">Adresa email</label>
-                                <input type="email" className="form-control" id="exampleDropdownFormEmail1"
-                                       placeholder="email@exemplu.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="exampleDropdownFormPassword1" className="form-label">Parola</label>
-                                <input type="password" className="form-control" id="exampleDropdownFormPassword1"
-                                       placeholder="Parola" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                            </div>
-                            {error && <div className="alert alert-danger">{error}</div>}
-                            <button type="submit" className="btn btn-primary">Logare</button>
-                        </form>
-                        <div className="dropdown-divider"></div>
-                        <Link className="dropdown-item" to="/register">Inregistrare</Link>
-                        <Link className="dropdown-item" to="/forgot-password">Parola uitata?</Link>
+                        <button type="button" className="btn dropdown-toggle"
+                                style={{backgroundColor: "#6B5F57", color: "floralwhite"}} data-bs-toggle="dropdown"
+                                aria-expanded="false" data-bs-auto-close="outside">
+                            Utilizator
+                        </button>
+                        <div className="dropdown-menu dropdown-menu-end"
+                             style={{minWidth: "300px", backgroundColor: "#6B6557", color: "floralwhite"}}>
+                            <form className="px-4 py-3" onSubmit={handleLogin}>
+                                <div className="mb-3">
+                                    <label htmlFor="exampleDropdownFormEmail1" className="form-label">Adresa
+                                        email</label>
+                                    <input type="email" className="form-control" id="exampleDropdownFormEmail1"
+                                           placeholder="email@exemplu.com" value={email}
+                                           onChange={(e) => setEmail(e.target.value)} required/>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="exampleDropdownFormPassword1" className="form-label">Parola</label>
+                                    <input type="password" className="form-control" id="exampleDropdownFormPassword1"
+                                           placeholder="Parola" value={password}
+                                           onChange={(e) => setPassword(e.target.value)} required/>
+                                </div>
+                                {error && <div className="alert alert-danger">{error}</div>}
+                                <button type="submit" className="btn "
+                                        style={{backgroundColor: "#6B5F57", color: "floralwhite"}}>Logare
+                                </button>
+                            </form>
+                            <div className="dropdown-divider"></div>
+                            <Link className="dropdown-item" to="/register"
+                                  style={{color: "floralwhite"}}>Inregistrare</Link>
+                            <Link className="dropdown-item" to="/forgot-password" style={{color: "floralwhite"}}>Parola
+                                uitata?</Link>
+                        </div>
                     </div>
-                </div>
                 }
                 {userType !== 'guest' &&
                     <div className="dropdown">
-                        <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                        <button type="button" className="btn dropdown-toggle"
+                                style={{backgroundColor: "#6B5F57", color: "floralwhite"}} data-bs-toggle="dropdown"
                                 aria-expanded="false" data-bs-auto-close="outside">
                             {userName}
                         </button>
-                        <div className="dropdown-menu dropdown-menu-end" style={{ minWidth: "300px" }}>
-                            <Link className="dropdown-item" to="/profile">Profil</Link>
-                            <button className="dropdown-item" onClick={handleLogout}>Deconectare</button>
+                        <div className="dropdown-menu dropdown-menu-end"
+                             style={{minWidth: "300px", backgroundColor: "#6B6557", color: "floralwhite"}}>
+                            <Link className="dropdown-item" to="/profile" style={{color: "floralwhite"}}>Profil</Link>
+                            <button className="dropdown-item" onClick={handleLogout}
+                                    style={{color: "floralwhite"}}>Deconectare
+                            </button>
                         </div>
                     </div>
                 }
