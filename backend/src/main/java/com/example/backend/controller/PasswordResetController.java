@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+/**
+ * REST controller for handling password reset requests.
+ */
 @RestController
 @RequestMapping("/api")
 public class PasswordResetController {
@@ -14,6 +17,12 @@ public class PasswordResetController {
     @Autowired
     private EmailService emailService;
 
+    /**
+     * Endpoint for handling forgot password requests.
+     *
+     * @param request a map containing the email address of the user who forgot their password.
+     * @return a ResponseEntity with a message indicating that the password reset link has been sent.
+     */
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> request) {
         String email = request.get("email");

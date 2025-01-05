@@ -8,9 +8,14 @@ import { FaBook, FaUser } from "react-icons/fa";
 /**
  * Header component
  * @param {string} userType - The type of the user.
+ * @param {string} userName - The name of the user.
+ * @param {string} userEmail - The email of the user.
+ * @param {function} setUserType - Function to set the user type.
+ * @param {function} setUserName - Function to set the user name.
+ * @param {function} setUserEmail - Function to set the user email.
  * @param {number} nbOfBooks - The number of books.
+ * @param {boolean} showControls - Flag to show or hide controls.
  * @returns {JSX.Element} The rendered Header component.
- * @constructor
  */
 const Header = ({userType, userName, userEmail, setUserType, setUserName, setUserEmail, nbOfBooks, showControls}) => {
     const [email, setEmail] = useState('');
@@ -27,6 +32,7 @@ const Header = ({userType, userName, userEmail, setUserType, setUserName, setUse
             setUserEmail(storedUserEmail);
         }
     }, [setUserType, setUserName, setUserEmail]);
+
     /**
      * Handle login form submission
      * @param {Event} event - The form submission event.
@@ -55,6 +61,9 @@ const Header = ({userType, userName, userEmail, setUserType, setUserName, setUse
         }
     };
 
+    /**
+     * Handle user logout
+     */
     const handleLogout = () => {
         localStorage.removeItem('userType');
         localStorage.removeItem('userName');

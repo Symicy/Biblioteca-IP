@@ -1,6 +1,6 @@
 {
   "source": {
-    "include": ["src/pages", "src/components", "src/api"],
+    "include": ["src/pages", "src/components", "src/api", "src"],
     "includePattern": ".+\\.(jsx)$",
     "excludePattern": "(node_modules/|docs)"
   },

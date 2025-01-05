@@ -30,6 +30,10 @@ function App() {
         }
     }, []);
 
+    /**
+     * HeaderConst component
+     * @returns {JSX.Element|null} The rendered Header component or null.
+     */
     const HeaderConst = () => {
         const location = useLocation();
         const showControls = location.pathname === "/books";

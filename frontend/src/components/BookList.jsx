@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import Book from "./Book.jsx";
 
+/**
+ * Component for displaying a list of books with filtering and pagination.
+ *
+ * @param {Object} props - The component props.
+ * @param {Array} props.books - The list of books.
+ * @param {Array} props.authors - The list of authors.
+ * @returns {JSX.Element} The rendered book list component.
+ */
 const BookList = ({ books = [], authors = [] }) => {
     const [filters, setFilters] = useState({
         author: "",
@@ -13,6 +21,11 @@ const BookList = ({ books = [], authors = [] }) => {
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
     const booksPerPage = 12;
 
+    /**
+     * Handles changes to the filter inputs.
+     *
+     * @param {Object} event - The event object.
+     */
     const handleFilterChange = (event) => {
         const { name, value } = event.target;
         setFilters({ ...filters, [name]: value });
@@ -21,6 +34,11 @@ const BookList = ({ books = [], authors = [] }) => {
 
     const booksArray = Array.isArray(books) ? books : [];
 
+    /**
+     * Filters the books based on the current filter values.
+     *
+     * @returns {Array} The filtered list of books.
+     */
     const filteredBooks = booksArray.filter((book) => {
         const author = authors.find((author) => author.id === book.authorId);
         const authorFullName = author ? `${author.firstName} ${author.lastName}`.toLowerCase() : "";
@@ -34,6 +52,11 @@ const BookList = ({ books = [], authors = [] }) => {
         );
     });
 
+    /**
+     * Combines books with their respective authors.
+     *
+     * @returns {Array} The list of books with author information.
+     */
     const booksWithAuthors = filteredBooks.map((book) => {
         const author = authors.find((author) => author.id === book.authorId);
         return { ...book, author };
@@ -43,10 +66,18 @@ const BookList = ({ books = [], authors = [] }) => {
     const startIndex = (currentPage - 1) * booksPerPage;
     const currentBooks = booksWithAuthors.slice(startIndex, startIndex + booksPerPage);
 
+    /**
+     * Handles page changes for pagination.
+     *
+     * @param {number} newPage - The new page number.
+     */
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
 
+    /**
+     * Toggles the visibility of the sidebar.
+     */
     const toggleSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible);
     };
@@ -56,7 +87,9 @@ const BookList = ({ books = [], authors = [] }) => {
             <div className="container-fluid">
                 <div className="row">
                     {isSidebarVisible && (
-                        <div className="col-md-2 border border-primary" style={{ backgroundColor: "#49ACEA", color: "floralwhite", padding: "20px", height: "100vh", position: "fixed", left: "0", top:"70px" }}>
+                        <div className="col-md-2 border border-primary"
+                             style={{ backgroundColor: "#49ACEA", color: "floralwhite", padding: "20px",
+                                      height: "100vh", position: "fixed", left: "0", top:"70px" }}>
                             <h3>Filtreaza cartile</h3>
                             <div className="mb-3">
                                 <strong>Numar de carti: {filteredBooks.length}</strong>

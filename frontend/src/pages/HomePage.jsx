@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
-import {getBooksNoPagination, saveBook, updatePhoto} from "../api/bookService";
+import { getBooksNoPagination, saveBook, updatePhoto } from "../api/bookService";
 import { getAuthors } from "../api/AuthorService";
 import BookList from "../components/BookList.jsx";
 import { saveAuthor } from "../api/AuthorService.jsx";
 import homePageImages from "../images/homePage.jpg";
 
-function HomePage({setNbOfBooks}) {
+/**
+ * HomePage component for displaying the list of books and handling book and author creation.
+ *
+ * @param {Object} props - The component props.
+ * @param {function} props.setNbOfBooks - Function to set the number of books.
+ * @returns {JSX.Element} The rendered HomePage component.
+ */
+function HomePage({ setNbOfBooks }) {
     const fileBookRef = useRef();
     const [data, setData] = useState({});
     const [fileBook, setFileBook] = useState(undefined);
@@ -28,6 +35,9 @@ function HomePage({setNbOfBooks}) {
     const [authors, setAuthors] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
+    /**
+     * Fetches all books without pagination.
+     */
     const getAllBooksNoPagination = async () => {
         try {
             const { data } = await getBooksNoPagination();
@@ -39,6 +49,9 @@ function HomePage({setNbOfBooks}) {
         }
     };
 
+    /**
+     * Fetches all authors.
+     */
     const getAllAuthors = async () => {
         try {
             const { data } = await getAuthors();
@@ -48,21 +61,41 @@ function HomePage({setNbOfBooks}) {
         }
     };
 
+    /**
+     * Handles changes to the book input fields.
+     *
+     * @param {Object} event - The event object.
+     */
     const onchangeBook = (event) => {
         setValuesBook({ ...valuesBook, [event.target.name]: event.target.value });
         console.log(valuesBook);
     };
 
+    /**
+     * Handles changes to the author input fields.
+     *
+     * @param {Object} event - The event object.
+     */
     const onchangeAuthor = (event) => {
         setValuesAuthor({ ...valuesAuthor, [event.target.name]: event.target.value });
         console.log(valuesAuthor);
     };
 
+    /**
+     * Handles changes to the book file input.
+     *
+     * @param {Object} event - The event object.
+     */
     const onchangeBookFile = (event) => {
         setFileBook(event.target.files[0]);
         console.log(fileBook);
     };
 
+    /**
+     * Handles the submission of a new book.
+     *
+     * @param {Object} event - The form submission event.
+     */
     const handleNewBook = async (event) => {
         event.preventDefault();
         try {
@@ -89,6 +122,11 @@ function HomePage({setNbOfBooks}) {
         }
     };
 
+    /**
+     * Handles the submission of a new author.
+     *
+     * @param {Object} event - The form submission event.
+     */
     const handleNewAuthor = async (event) => {
         console.log(valuesAuthor);
         event.preventDefault();
@@ -130,7 +168,7 @@ function HomePage({setNbOfBooks}) {
             >
                 <main className="main">
                     <div className="container-fluid">
-                        <BookList books={data} authors={authors}/>
+                        <BookList books={data} authors={authors} />
                     </div>
                 </main>
 
@@ -150,14 +188,14 @@ function HomePage({setNbOfBooks}) {
                                         <input type="text" name="title" value={valuesBook.title}
                                                onChange={onchangeBook} className="form-control"
                                                aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default" required/>
+                                               aria-describedby="inputGroup-sizing-default" required />
                                     </div>
                                     <div className="input-group mb-3">
                                         <span className="input-group-text" id="inputGroup-sizing-default">Autor:</span>
                                         <input type="text" name="searchTerm" value={searchTerm}
                                                onChange={(e) => setSearchTerm(e.target.value)} className="form-control"
                                                aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default" placeholder="Caută autor"/>
+                                               aria-describedby="inputGroup-sizing-default" placeholder="Caută autor" />
                                         <select name="authorId" value={valuesBook.authorId} onChange={onchangeBook}
                                                 className="form-control" required>
                                             <option value="">Selecteaza autor</option>
@@ -174,7 +212,7 @@ function HomePage({setNbOfBooks}) {
                                         <input type="text" value={valuesBook.isbnIssn} name="isbnIssn"
                                                onChange={onchangeBook} className="form-control"
                                                aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default" required/>
+                                               aria-describedby="inputGroup-sizing-default" required />
                                     </div>
                                     <div className="input-group mb-3">
                                     <span className="input-group-text"
@@ -183,7 +221,7 @@ function HomePage({setNbOfBooks}) {
                                                name="yearOfPublication"
                                                onChange={onchangeBook} className="form-control"
                                                aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default" required/>
+                                               aria-describedby="inputGroup-sizing-default" required />
                                     </div>
                                     <div className="input-group mb-3">
                                     <span className="input-group-text"
@@ -191,7 +229,7 @@ function HomePage({setNbOfBooks}) {
                                         <input type="text" value={valuesBook.language} name="language"
                                                onChange={onchangeBook} className="form-control"
                                                aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default" required/>
+                                               aria-describedby="inputGroup-sizing-default" required />
                                     </div>
                                     <div className="input-group mb-3">
                                     <span className="input-group-text"
@@ -199,7 +237,7 @@ function HomePage({setNbOfBooks}) {
                                         <input type="text" value={valuesBook.category} name="category"
                                                onChange={onchangeBook} className="form-control"
                                                aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default" required/>
+                                               aria-describedby="inputGroup-sizing-default" required />
                                     </div>
                                     <div className="input-group mb-3">
                                         <span className="input-group-text" id="inputGroup-sizing-default">Status:</span>
@@ -208,7 +246,7 @@ function HomePage({setNbOfBooks}) {
                                                 <input className="form-check-input" type="radio" name="status"
                                                        id="statusAvailable" value="Disponibilă"
                                                        checked={valuesBook.status === "Disponibilă"}
-                                                       onChange={onchangeBook} required/>
+                                                       onChange={onchangeBook} required />
                                                 <label className="form-check-label" htmlFor="statusAvailable">
                                                     Disponibilă
                                                 </label>
@@ -217,7 +255,7 @@ function HomePage({setNbOfBooks}) {
                                                 <input className="form-check-input" type="radio" name="status"
                                                        id="statusUnavailable" value="Indisponibilă"
                                                        checked={valuesBook.status === "Indisponibilă"}
-                                                       onChange={onchangeBook} required/>
+                                                       onChange={onchangeBook} required />
                                                 <label className="form-check-label" htmlFor="statusUnavailable">
                                                     Indisponibilă
                                                 </label>
@@ -227,7 +265,7 @@ function HomePage({setNbOfBooks}) {
                                     <div className="mb-3">
                                         <label htmlFor="formFileBook" className="form-label">Adaugă copertă</label>
                                         <input className="form-control" type="file" id="formFileBook" ref={fileBookRef}
-                                               name="photoURL" onChange={onchangeBookFile} required/>
+                                               name="photoURL" onChange={onchangeBookFile} required />
                                     </div>
                                 </div>
                                 <div className="modal-footer">
@@ -256,7 +294,7 @@ function HomePage({setNbOfBooks}) {
                                         <input type="text" name="lastName" value={valuesAuthor.lastName}
                                                onChange={onchangeAuthor} className="form-control"
                                                aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default" required/>
+                                               aria-describedby="inputGroup-sizing-default" required />
                                     </div>
                                     <div className="input-group mb-3">
                                         <span className="input-group-text"
@@ -264,7 +302,7 @@ function HomePage({setNbOfBooks}) {
                                         <input type="text" name="firstName" value={valuesAuthor.firstName}
                                                onChange={onchangeAuthor} className="form-control"
                                                aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default" required/>
+                                               aria-describedby="inputGroup-sizing-default" required />
                                     </div>
                                     <div className="input-group mb-3">
                                         <span className="input-group-text"
@@ -272,7 +310,7 @@ function HomePage({setNbOfBooks}) {
                                         <input type="date" value={valuesAuthor.dateOfBirth} name="dateOfBirth"
                                                onChange={onchangeAuthor} className="form-control"
                                                aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default" required/>
+                                               aria-describedby="inputGroup-sizing-default" required />
                                     </div>
                                     <div className="input-group mb-3">
                                     <span className="input-group-text"
@@ -280,7 +318,7 @@ function HomePage({setNbOfBooks}) {
                                         <input type="date" value={valuesAuthor.dateOfDeath} name="dateOfDeath"
                                                onChange={onchangeAuthor} className="form-control"
                                                aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default"/>
+                                               aria-describedby="inputGroup-sizing-default" />
                                     </div>
                                     <div className="input-group mb-3">
                                     <span className="input-group-text"
@@ -288,7 +326,7 @@ function HomePage({setNbOfBooks}) {
                                         <input type="text" value={valuesAuthor.country} name="country"
                                                onChange={onchangeAuthor} className="form-control"
                                                aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default" required/>
+                                               aria-describedby="inputGroup-sizing-default" required />
                                     </div>
                                 </div>
                                 <div className="modal-footer">
@@ -301,8 +339,8 @@ function HomePage({setNbOfBooks}) {
                     </div>
                 </div>
             </div>
-            </>
-            );
-            }
+        </>
+    );
+}
 
-            export default HomePage;
+export default HomePage;

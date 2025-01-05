@@ -1,15 +1,30 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+/**
+ * Component for handling the forgot password functionality.
+ *
+ * @returns {JSX.Element} The rendered forgot password component.
+ */
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
 
+    /**
+     * Handles changes to the email input field.
+     *
+     * @param {Object} e - The event object.
+     */
     const handleChange = (e) => {
         setEmail(e.target.value);
     };
 
+    /**
+     * Handles the form submission for password reset.
+     *
+     * @param {Object} e - The form submission event.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {

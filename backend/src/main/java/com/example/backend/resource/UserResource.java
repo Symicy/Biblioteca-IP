@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
+/**
+ * REST controller for managing users.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/users")
@@ -16,6 +19,12 @@ import java.net.URI;
 public class UserResource {
     private final UserService userService;
 
+    /**
+     * Registers a new user.
+     *
+     * @param user the user to register.
+     * @return the ResponseEntity with status 201 (Created) and with body the new user, or status 409 (Conflict) if the user already exists.
+     */
     @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
@@ -25,6 +34,12 @@ public class UserResource {
         }
     }
 
+    /**
+     * Logs in a user.
+     *
+     * @param user the user to log in.
+     * @return the ResponseEntity with status 200 (OK) and with body the logged-in user, or status 401 (Unauthorized) if the login fails.
+     */
     @PostMapping("/login")
     public ResponseEntity<User> loginUser(@RequestBody User user) {
         try{
