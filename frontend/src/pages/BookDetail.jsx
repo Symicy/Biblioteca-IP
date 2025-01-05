@@ -1,31 +1,52 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import {deleteBook, updateBook} from "../api/BookService.jsx";
+import { deleteBook, updateBook } from "../api/BookService.jsx";
 import bookDetailPhoto from "../images/bookDetail.jpg";
 
-const BookDetail = ({userType}) => {
+/**
+ * Component for displaying the details of a book.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.userType - The type of the user (e.g., admin, guest).
+ * @returns {JSX.Element} The rendered book detail component.
+ */
+const BookDetail = ({ userType }) => {
     const location = useLocation();
     const { book, authors } = location.state ? location.state : {};
     const [isEditing, setIsEditing] = useState(false);
     const [editableBook, setEditableBook] = useState(book);
 
+    console.log(book);
+    console.log(authors);
+
     if (!book) {
         return <h1 className="text-center mt-4">Book not found</h1>;
     }
 
+    /**
+     * Toggles the edit mode.
+     */
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
     };
 
+    /**
+     * Handles changes to the input fields.
+     *
+     * @param {Object} e - The event object.
+     */
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setEditableBook((prev) => ({ ...prev, [name]: value }));
     };
 
+    /**
+     * Saves the updated book details.
+     */
     const handleSave = async () => {
         try {
             const updatedBook = {
-                id : editableBook.id,
+                id: editableBook.id,
                 title: editableBook.title,
                 isbnIssn: editableBook.isbnIssn,
                 authorId: editableBook.authorId,
@@ -44,6 +65,9 @@ const BookDetail = ({userType}) => {
         }
     };
 
+    /**
+     * Deletes the book.
+     */
     const handleDelete = async () => {
         try {
             await deleteBook(book.id);
@@ -66,20 +90,20 @@ const BookDetail = ({userType}) => {
                 padding: "50px 0",
             }}
         >
-            <div className="container my-5 d-flex justify-content-center" >
-                <div className="card w-75 shadow-lg" style={{backgroundColor:"#6B5F57"}}>
+            <div className="container my-5 d-flex justify-content-center">
+                <div className="card w-75 shadow-lg" style={{ backgroundColor: "#6B5F57" }}>
                     <div className="row g-0">
-                        <div className="col-md-4 d-flex align-items-center justify-content-center" >
+                        <div className="col-md-4 d-flex align-items-center justify-content-center">
                             <img
                                 src={editableBook.photoURL ? editableBook.photoURL : "https://via.placeholder.com/300"}
                                 alt={editableBook.title}
                                 className="img-fluid rounded"
-                                style={{maxHeight: "400px", objectFit: "cover"}}
+                                style={{ maxHeight: "400px", objectFit: "cover" }}
                             />
                         </div>
-                        <div className="col-md-8" style={{backgroundColor:"#6B5F57"}}>
+                        <div className="col-md-8" style={{ backgroundColor: "#6B5F57" }}>
                             <div className="card-body">
-                                <h2 className="card-title mb-4" style={{color:"floralwhite"}}>
+                                <h2 className="card-title mb-4" style={{ color: "floralwhite" }}>
                                     {isEditing ? (
                                         <>
                                             <strong>Titlu:</strong>
@@ -95,8 +119,8 @@ const BookDetail = ({userType}) => {
                                         editableBook.title
                                     )}
                                 </h2>
-                                <ul className="list-group ">
-                                    <li className="list-group-item" style={{backgroundColor:"#6B6557",color:"floralwhite"}}>
+                                <ul className="list-group">
+                                    <li className="list-group-item" style={{ backgroundColor: "#6B6557", color: "floralwhite" }}>
                                         <strong>Autor:</strong> {isEditing ? (
                                         <select
                                             name="authorId"
@@ -115,7 +139,7 @@ const BookDetail = ({userType}) => {
                                         editableBook.author ? `${editableBook.author.firstName} ${editableBook.author.lastName}` : "Nespecificat"
                                     )}
                                     </li>
-                                    <li className="list-group-item" style={{backgroundColor:"#6B6557",color:"floralwhite"}}>
+                                    <li className="list-group-item" style={{ backgroundColor: "#6B6557", color: "floralwhite" }}>
                                         <strong>ISBN/ISSN:</strong> {isEditing ? (
                                         <input
                                             type="text"
@@ -128,7 +152,7 @@ const BookDetail = ({userType}) => {
                                         editableBook.isbnIssn
                                     )}
                                     </li>
-                                    <li className="list-group-item" style={{backgroundColor:"#6B6557",color:"floralwhite"}}>
+                                    <li className="list-group-item" style={{ backgroundColor: "#6B6557", color: "floralwhite" }}>
                                         <strong>Status:</strong> {isEditing ? (
                                         <input
                                             type="text"
@@ -141,7 +165,7 @@ const BookDetail = ({userType}) => {
                                         editableBook.status
                                     )}
                                     </li>
-                                    <li className="list-group-item" style={{backgroundColor:"#6B6557",color:"floralwhite"}}>
+                                    <li className="list-group-item" style={{ backgroundColor: "#6B6557", color: "floralwhite" }}>
                                         <strong>An publicare:</strong> {isEditing ? (
                                         <input
                                             type="text"
@@ -154,7 +178,7 @@ const BookDetail = ({userType}) => {
                                         editableBook.yearOfPublication
                                     )}
                                     </li>
-                                    <li className="list-group-item" style={{backgroundColor:"#6B6557",color:"floralwhite"}}>
+                                    <li className="list-group-item" style={{ backgroundColor: "#6B6557", color: "floralwhite" }}>
                                         <strong>Limba:</strong> {isEditing ? (
                                         <input
                                             type="text"
@@ -167,7 +191,7 @@ const BookDetail = ({userType}) => {
                                         editableBook.language
                                     )}
                                     </li>
-                                    <li className="list-group-item" style={{backgroundColor:"#6B6557",color:"floralwhite"}}>
+                                    <li className="list-group-item" style={{ backgroundColor: "#6B6557", color: "floralwhite" }}>
                                         <strong>Categorie:</strong> {isEditing ? (
                                         <input
                                             type="text"
@@ -186,14 +210,14 @@ const BookDetail = ({userType}) => {
                                         {isEditing ? (
                                             <button
                                                 onClick={handleSave}
-                                                className="btn " style={{backgroundColor: "#49ADEB",color:"floralwhite"}}
+                                                className="btn" style={{ backgroundColor: "#49ADEB", color: "floralwhite" }}
                                             >
                                                 Salvează
                                             </button>
                                         ) : (
                                             <button
                                                 onClick={handleEditToggle}
-                                                className="btn " style={{backgroundColor: "#49ADEB",color:"floralwhite"}}
+                                                className="btn" style={{ backgroundColor: "#49ADEB", color: "floralwhite" }}
                                             >
                                                 Editare
                                             </button>
@@ -201,14 +225,14 @@ const BookDetail = ({userType}) => {
                                         {isEditing ? (
                                             <button
                                                 onClick={handleEditToggle}
-                                                className="btn " style={{backgroundColor: "#EB8B49",color:"floralwhite"}}
+                                                className="btn" style={{ backgroundColor: "#EB8B49", color: "floralwhite" }}
                                             >
                                                 Renunță
                                             </button>
                                         ) : (
                                             <button
                                                 onClick={handleDelete}
-                                                className="btn " style={{backgroundColor: "#EB8B49",color:"floralwhite"}}
+                                                className="btn" style={{ backgroundColor: "#EB8B49", color: "floralwhite" }}
                                             >
                                                 Ștergere
                                             </button>
@@ -220,8 +244,8 @@ const BookDetail = ({userType}) => {
                     </div>
                 </div>
             </div>
-            </div>
-            );
-            };
+        </div>
+    );
+};
 
-            export default BookDetail;
+export default BookDetail;
